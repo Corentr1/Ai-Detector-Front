@@ -1,6 +1,8 @@
 import os
 import streamlit as st
-
+import requests
+import time
+from PIL import Image
 
 # Define the base URI of the API
 #   - Potential sources are in `.streamlit/secrets.toml` or in the Secrets section
@@ -19,30 +21,80 @@ url = BASE_URI + 'predict'
 # Just displaying the source for the API. Remove this in your final version.
 st.markdown(f"Working with {url}")
 
-st.markdown("Now, the rest is up to you. Start creating your page.")
-
-
 # TODO: Add some titles, introduction, ...
+
+st.image('media/logo.png')
+
+st.markdown("<h2 style='text-align: center;'>Uncover the Origins of Your Images with Cutting-Edge AI Technology</h2>", unsafe_allow_html=True)
+st.markdown("</p>", unsafe_allow_html=True)
+st.markdown("""Step into the world of AI Detector – your ultimate solution for \
+            unraveling the mysteries behind images. Leveraging state-of-the-art \
+            artificial intelligence, our app distinguishes between images generated \
+            by AI algorithms and those crafted by human hands. Simply upload an image, \
+            and let our intelligent algorithms dissect its nuances. Gain profound \
+            insights into the authenticity of your visuals with unmatched accuracy. \
+            Embark on a journey into the future of image verification with AI Detector!""")
 
 
 # TODO: Request user input
+st.markdown("</p>", unsafe_allow_html=True)
+st.markdown("</p>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; color: #E73D53;'>Upload your picture</h3>", unsafe_allow_html=True)
 
+st.set_option('deprecation.showfileUploaderEncoding', False)
+img_file_buffer = st.file_uploader("Upload an image", type=['png', 'jpg'])
 
-# TODO: Call the API using the user's input
-#   - url is already defined above
-#   - create a params dict based on the user's input
-#   - finally call your API using the requests package
+if img_file_buffer is not None:
+    ### Display the image user uploaded
+    st.image(Image.open(img_file_buffer))
 
+    ### Get bytes from the file buffer
+    img_bytes = img_file_buffer.getvalue()
 
-# TODO: retrieve the results
-#   - add a little check if you got an ok response (status code 200) or something else
-#   - retrieve the prediction from the JSON
+    ### Animation + API request
+    trigger=False
+    col1, col2, col3 , col4, col5 = st.columns(5)
+    with col1: pass
+    with col2: pass
+    with col4: pass
+    with col5: pass
+    with col3 :
+        if st.button("Is it fake?"):
+            #res = requests.post(url + "/upload_image", files={'img': img_bytes})
+            with st.spinner('Wait for it...'):
+                time.sleep(1)
+                st.toast('Slowing it down to display this message')
+                time.sleep(1.5)
+                st.toast('Searching for the info on Kitt Le Wagon')
+                time.sleep(1.5)
+                st.toast('Raised a ticket with Jules van Rie ')
+                time.sleep(1.5)
+                st.toast('Checking Stackoverflow to make sure')
+                time.sleep(1.5)
+                st.toast('git status, add, commit "test"')
+                time.sleep(2)
+                st.toast('Hooray! We found something', icon='🎉')
+            trigger = True
 
+    ### Conditionnal display of response
+    if trigger:
+        st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
+        st.progress(0.64, text=f"Your accuracy is around {0.64*100}%")
 
-# TODO: display the prediction in some fancy way to the user
+        # TO UNCOMMENT WHEN API READY
+        # if res.status_code == 200:
+            # accuracy = res["accuracy"]
+            # if res["is_ai?"]=0:
+                # st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
+                # st.progress(accuracy, text=f"Your accuracy is around {round(accuracy*100,2)}%")
+            # else:
+                # st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely AI bwahhh!!!</h3>", unsafe_allow_html=True)
+                # st.progress(accuracy, text=f"Your accuracy is around {round(accuracy*100,2)}%")
+        # else:
+            # st.markdown("<h3 style='text-align: center; color: #E73D53;'>Oops, something went wrong 😓 Please try again.</h3>", unsafe_allow_html=True)
+            # print(res.status_code, res.content)
 
-
-# TODO: [OPTIONAL] maybe you can add some other pages?
-#   - some statistical data you collected in graphs
-#   - description of your product
-#   - a 'Who are we?'-page
+    # TODO: [OPTIONAL] maybe you can add some other pages?
+    #   - some statistical data you collected in graphs
+    #   - description of your product
+    #   - a 'Who are we?'-page
