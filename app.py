@@ -1,9 +1,8 @@
 import os
 import streamlit as st
 import requests
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import time
+from PIL import Image
 
 
 
@@ -40,36 +39,27 @@ st.markdown("""Step into the world of AI Detector – your ultimate solution for
             insights into the authenticity of your visuals with unmatched accuracy. \
             Embark on a journey into the future of image verification with AI Detector!""")
 
+
 # TODO: Request user input
 st.markdown("</p>", unsafe_allow_html=True)
 st.markdown("</p>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center; color: #E73D53;'>Upload your picture</h3>", unsafe_allow_html=True)
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
-uploaded_file = st.file_uploader("Upload an image", type=['png', 'jpg'])
+img_file_buffer = st.file_uploader("Upload an image", type=['png', 'jpg'])
 
 
-if uploaded_file is not None:
-    data = mpimg.imread(uploaded_file)
-    st.image(data)
+if img_file_buffer is not None:
+    ### Display the image user uploaded
+    st.image(Image.open(img_file_buffer))
 
+    ### Get bytes from the file buffer
+    img_bytes = img_file_buffer.getvalue()
 
-    # TODO: Call the API using the user's input
+    ### Make request to  API
+    #res = requests.post(url + "/upload_image", files={'img': img_bytes})
 
-    #   - url is already defined above
-    #   - create a params dict based on the user's input
-    #   - finally call your API using the requests package
-
-    params = {
-    }
-
-    def fetch_aidetector(params):
-        """
-        Get lyrics from Seeds Lyrics API. Returns empty string if song not found
-        """
-        response = requests.get(url=url, params = params).json()
-        return round(response["fare"],2)
-
+    ### Animation
     trigger=False
     col1, col2, col3 , col4, col5 = st.columns(5)
     with col1: pass
@@ -80,6 +70,7 @@ if uploaded_file is not None:
         if st.button("Is it fake?"):
             #response = fetch_aidetector(params)
             with st.spinner('Wait for it...'):
+                time.sleep(1)
                 st.toast('Extracting elements from picture')
                 time.sleep(1.5)
                 st.toast('Searching for the info on Kitt Le Wagon')
@@ -89,24 +80,26 @@ if uploaded_file is not None:
                 st.toast('Checking Stackoverflow to make sure')
                 time.sleep(1.5)
                 st.toast('git status, add, commit "test"')
-                time.sleep(1.5)
+                time.sleep(2)
                 st.toast('Hooray! We found something', icon='🎉')
-
-            #st.write(f"Your image is {response}$")
             trigger = True
 
     if trigger:
         st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
         st.progress(0.64, text=f"Your accuracy is around {0.64*100}%")
 
-
-    # TODO: retrieve the results
-    #   - add a little check if you got an ok response (status code 200) or something else
-    #   - retrieve the prediction from the JSON
-
-
-    # TODO: display the prediction in some fancy way to the user
-
+        # TO UNCOMMENT WHEN API READY
+        # if res.status_code == 200:
+        #     accuracy = res["accuracy"]
+        #     if res["is_ai?"]=0:
+        #         st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
+        #         st.progress(accuracy, text=f"Your accuracy is around {accuracy*100}%")
+        #     else:
+        #         st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely AI bwahhh!!!</h3>", unsafe_allow_html=True)
+        #         st.progress(accuracy, text=f"Your accuracy is around {accuracy*100}%")
+        # else:
+        #     st.markdown("<h3 style='text-align: center; color: #E73D53;'>Oops, something went wrong 😓 Please try again.</h3>", unsafe_allow_html=True)
+        #     print(res.status_code, res.content)
 
     # TODO: [OPTIONAL] maybe you can add some other pages?
     #   - some statistical data you collected in graphs
