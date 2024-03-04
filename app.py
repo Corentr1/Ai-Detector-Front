@@ -48,7 +48,6 @@ st.markdown("<h3 style='text-align: center; color: #E73D53;'>Upload your picture
 st.set_option('deprecation.showfileUploaderEncoding', False)
 img_file_buffer = st.file_uploader("Upload an image", type=['png', 'jpg'])
 
-
 if img_file_buffer is not None:
     ### Display the image user uploaded
     st.image(Image.open(img_file_buffer))
@@ -56,10 +55,7 @@ if img_file_buffer is not None:
     ### Get bytes from the file buffer
     img_bytes = img_file_buffer.getvalue()
 
-    ### Make request to  API
-    #res = requests.post(url + "/upload_image", files={'img': img_bytes})
-
-    ### Animation
+    ### Animation + API request
     trigger=False
     col1, col2, col3 , col4, col5 = st.columns(5)
     with col1: pass
@@ -68,10 +64,10 @@ if img_file_buffer is not None:
     with col5: pass
     with col3 :
         if st.button("Is it fake?"):
-            #response = fetch_aidetector(params)
+            #res = requests.post(url + "/upload_image", files={'img': img_bytes})
             with st.spinner('Wait for it...'):
                 time.sleep(1)
-                st.toast('Extracting elements from picture')
+                st.toast('Slowing it down to display this message')
                 time.sleep(1.5)
                 st.toast('Searching for the info on Kitt Le Wagon')
                 time.sleep(1.5)
@@ -84,6 +80,7 @@ if img_file_buffer is not None:
                 st.toast('Hooray! We found something', icon='🎉')
             trigger = True
 
+    ### Conditionnal display of response
     if trigger:
         st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
         st.progress(0.64, text=f"Your accuracy is around {0.64*100}%")
