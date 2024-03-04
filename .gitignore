@@ -1,0 +1,32 @@
+# Standard python ignores
+*.egg-info
+.coverage
+.ipynb_checkpoints
+**/__pycache__/
+.python-version
+*.pyc
+**/build
+
+# Ignore these macos generated files
+.DS_Store
+
+# Ignore these Windows generated files
+*Zone.Identifier
+
+# Ignore VS Code generated files
+*.vscode
+
+# Raw data
+raw_data/
+*.csv
+*.sqlite
+*.zip
+
+# Credentials (or files with potentially credentials inside)
+.env
+.credentials
+secrets.toml
+*.json
+
+# User defined extras
+# Complete to your desire
