@@ -4,9 +4,6 @@ import requests
 import time
 from PIL import Image
 
-
-
-
 # Define the base URI of the API
 #   - Potential sources are in `.streamlit/secrets.toml` or in the Secrets section
 #     on Streamlit Cloud
@@ -22,12 +19,11 @@ BASE_URI = BASE_URI if BASE_URI.endswith('/') else BASE_URI + '/'
 url = BASE_URI + 'predict'
 
 # Just displaying the source for the API. Remove this in your final version.
-#st.markdown(f"Working with {url}")
+st.markdown(f"Working with {url}")
 
 # TODO: Add some titles, introduction, ...
 
 st.image('media/logo.png')
-#st.markdown("<h1 style='text-align: center;'>AI Detector</h1>", unsafe_allow_html=True)
 
 st.markdown("<h2 style='text-align: center;'>Uncover the Origins of Your Images with Cutting-Edge AI Technology</h2>", unsafe_allow_html=True)
 st.markdown("</p>", unsafe_allow_html=True)
@@ -87,16 +83,16 @@ if img_file_buffer is not None:
 
         # TO UNCOMMENT WHEN API READY
         # if res.status_code == 200:
-        #     accuracy = res["accuracy"]
-        #     if res["is_ai?"]=0:
-        #         st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
-        #         st.progress(accuracy, text=f"Your accuracy is around {accuracy*100}%")
-        #     else:
-        #         st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely AI bwahhh!!!</h3>", unsafe_allow_html=True)
-        #         st.progress(accuracy, text=f"Your accuracy is around {accuracy*100}%")
+            # accuracy = res["accuracy"]
+            # if res["is_ai?"]=0:
+                # st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
+                # st.progress(accuracy, text=f"Your accuracy is around {round(accuracy*100,2)}%")
+            # else:
+                # st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely AI bwahhh!!!</h3>", unsafe_allow_html=True)
+                # st.progress(accuracy, text=f"Your accuracy is around {round(accuracy*100,2)}%")
         # else:
-        #     st.markdown("<h3 style='text-align: center; color: #E73D53;'>Oops, something went wrong 😓 Please try again.</h3>", unsafe_allow_html=True)
-        #     print(res.status_code, res.content)
+            # st.markdown("<h3 style='text-align: center; color: #E73D53;'>Oops, something went wrong 😓 Please try again.</h3>", unsafe_allow_html=True)
+            # print(res.status_code, res.content)
 
     # TODO: [OPTIONAL] maybe you can add some other pages?
     #   - some statistical data you collected in graphs
