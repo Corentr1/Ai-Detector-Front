@@ -23,7 +23,17 @@ st.markdown("Now, the rest is up to you. Start creating your page.")
 
 
 # TODO: Add some titles, introduction, ...
+st.markdown("""# AI Detector""")
 
+st.markdown("""## Uncover the Origins of Your Images with Cutting-Edge AI Technology""")
+
+st.markdown("""Step into the world of AI Detector – your ultimate solution for /
+            unraveling the mysteries behind images. Leveraging state-of-the-art /
+            artificial intelligence, our app distinguishes between images generated /
+            by AI algorithms and those crafted by human hands. Simply upload an image, /
+            and let our intelligent algorithms dissect its nuances. Gain profound /
+            insights into the authenticity of your visuals with unmatched accuracy. /
+            Embark on a journey into the future of image verification with AI Detector!""")
 
 # TODO: Request user input
 
