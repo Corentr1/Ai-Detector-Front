@@ -3,6 +3,7 @@ import streamlit as st
 import requests
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import time
 
 
 
@@ -42,7 +43,7 @@ st.markdown("""Step into the world of AI Detector – your ultimate solution for
 # TODO: Request user input
 st.markdown("</p>", unsafe_allow_html=True)
 st.markdown("</p>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align: center;'>Upload your picture</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; color: #E73D53;'>Upload your picture</h3>", unsafe_allow_html=True)
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 uploaded_file = st.file_uploader("Upload an image", type=['png', 'jpg'])
@@ -53,36 +54,61 @@ if uploaded_file is not None:
     st.image(data)
 
 
-# TODO: Call the API using the user's input
+    # TODO: Call the API using the user's input
 
-params = {
+    #   - url is already defined above
+    #   - create a params dict based on the user's input
+    #   - finally call your API using the requests package
 
-}
+    params = {
+    }
 
-def fetch_aidetector(params):
-    """
-    Get lyrics from Seeds Lyrics API. Returns empty string if song not found
-    """
-    response = requests.get(url=url, params = params).json()
-    return round(response["fare"],2)
+    def fetch_aidetector(params):
+        """
+        Get lyrics from Seeds Lyrics API. Returns empty string if song not found
+        """
+        response = requests.get(url=url, params = params).json()
+        return round(response["fare"],2)
 
-#   - url is already defined above
-#   - create a params dict based on the user's input
-#   - finally call your API using the requests package
+    trigger=False
+    col1, col2, col3 , col4, col5 = st.columns(5)
+    with col1: pass
+    with col2: pass
+    with col4: pass
+    with col5: pass
+    with col3 :
+        if st.button("Is it fake?"):
+            #response = fetch_aidetector(params)
+            with st.spinner('Wait for it...'):
+                st.toast('Extracting elements from picture')
+                time.sleep(1.5)
+                st.toast('Searching for the info on Kitt Le Wagon')
+                time.sleep(1.5)
+                st.toast('Raised a ticket with Jules van Rie ')
+                time.sleep(1.5)
+                st.toast('Checking Stackoverflow to make sure')
+                time.sleep(1.5)
+                st.toast('git status, add, commit "test"')
+                time.sleep(1.5)
+                st.toast('Hooray! We found something', icon='🎉')
 
-# if st.button("Is it fake?"):
-#     response = fetch_aidetector(params)
-#     st.write(f"Your image is {response}$")
+            #st.write(f"Your image is {response}$")
+            trigger = True
 
-# TODO: retrieve the results
-#   - add a little check if you got an ok response (status code 200) or something else
-#   - retrieve the prediction from the JSON
-
-
-# TODO: display the prediction in some fancy way to the user
+    if trigger:
+        st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
+        st.progress(0.64, text=f"Your accuracy is around {0.64*100}%")
 
 
-# TODO: [OPTIONAL] maybe you can add some other pages?
-#   - some statistical data you collected in graphs
-#   - description of your product
-#   - a 'Who are we?'-page
+    # TODO: retrieve the results
+    #   - add a little check if you got an ok response (status code 200) or something else
+    #   - retrieve the prediction from the JSON
+
+
+    # TODO: display the prediction in some fancy way to the user
+
+
+    # TODO: [OPTIONAL] maybe you can add some other pages?
+    #   - some statistical data you collected in graphs
+    #   - description of your product
+    #   - a 'Who are we?'-page
