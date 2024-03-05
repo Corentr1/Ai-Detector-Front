@@ -16,7 +16,7 @@ else:
 # Add a '/' at the end if it's not there
 BASE_URI = BASE_URI if BASE_URI.endswith('/') else BASE_URI + '/'
 # Define the url to be used by requests.get to get a prediction (adapt if needed)
-url = BASE_URI + 'predict'
+url = BASE_URI #+ 'predict'
 
 # Just displaying the source for the API. Remove this in your final version.
 st.markdown(f"Working with {url}")
