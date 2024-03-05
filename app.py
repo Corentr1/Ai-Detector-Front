@@ -2,6 +2,7 @@ import os
 import streamlit as st
 import requests
 import time
+from PIL import Image
 
 # Define the base URI of the API
 #   - Potential sources are in `.streamlit/secrets.toml` or in the Secrets section
@@ -45,7 +46,7 @@ img_file_buffer = st.file_uploader("Upload an image", type=['png', 'jpg'])
 
 if img_file_buffer is not None:
     ### Display the image user uploaded
-    st.image(img_file_buffer)
+    st.image(Image.open(img_file_buffer))
 
     ### Get bytes from the file buffer
     img_bytes = img_file_buffer.getvalue()
