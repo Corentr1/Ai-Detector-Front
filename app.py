@@ -12,11 +12,11 @@ from PIL import Image
 if 'API_URI' in os.environ:
     BASE_URI = st.secrets[os.environ.get('API_URI')]
 else:
-    BASE_URI = st.secrets['cloud_api_uri']
+    BASE_URI = st.secrets['local_api_uri']
 # Add a '/' at the end if it's not there
 BASE_URI = BASE_URI if BASE_URI.endswith('/') else BASE_URI + '/'
 # Define the url to be used by requests.get to get a prediction (adapt if needed)
-url = BASE_URI + 'predict'
+url = BASE_URI #+ 'predict'
 
 # Just displaying the source for the API. Remove this in your final version.
 st.markdown(f"Working with {url}")
@@ -60,7 +60,7 @@ if img_file_buffer is not None:
     with col5: pass
     with col3 :
         if st.button("Is it fake?"):
-            #res = requests.post(url + "/upload_image", files={'img': img_bytes})
+            res = requests.post(url + "upload_image", files={'img': img_bytes})
             with st.spinner('Wait for it...'):
                 time.sleep(1)
                 st.toast('Slowing it down to display this message')
@@ -78,21 +78,22 @@ if img_file_buffer is not None:
 
     ### Conditionnal display of response
     if trigger:
-        st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
-        st.progress(0.64, text=f"Your accuracy is around {0.64*100}%")
+        #st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
+        #st.progress(0.64, text=f"Your accuracy is around {0.64*100}%")
 
         # TO UNCOMMENT WHEN API READY
-        # if res.status_code == 200:
-            # accuracy = res["accuracy"]
-            # if res["is_ai?"]=0:
-                # st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
-                # st.progress(accuracy, text=f"Your accuracy is around {round(accuracy*100,2)}%")
-            # else:
-                # st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely AI bwahhh!!!</h3>", unsafe_allow_html=True)
-                # st.progress(accuracy, text=f"Your accuracy is around {round(accuracy*100,2)}%")
-        # else:
-            # st.markdown("<h3 style='text-align: center; color: #E73D53;'>Oops, something went wrong 😓 Please try again.</h3>", unsafe_allow_html=True)
-            # print(res.status_code, res.content)
+        if res.status_code == 200:
+            #accuracy = res["accuracy"]
+            if res.json()["size of the array"]:
+                st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
+                res.json()["size of the array"]
+                #st.progress(accuracy, text=f"Your accuracy is around {round(accuracy*100,2)}%")
+            else:
+                st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely AI bwahhh!!!</h3>", unsafe_allow_html=True)
+                #st.progress(accuracy, text=f"Your accuracy is around {round(accuracy*100,2)}%")
+        else:
+            st.markdown("<h3 style='text-align: center; color: #E73D53;'>Oops, something went wrong 😓 Please try again.</h3>", unsafe_allow_html=True)
+            print(res.status_code, res.content)
 
     # TODO: [OPTIONAL] maybe you can add some other pages?
     #   - some statistical data you collected in graphs
