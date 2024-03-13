@@ -62,21 +62,19 @@ if img_file_buffer is not None:
     if st.button("Is it fake?"):
         res = requests.post(url + "/get_prediction", files={'img': img_bytes})
         response = res.json()
-        with st.spinner('Wait for it...'):
-            time.sleep(1)
-            st.toast('Slowing it down to display this message')
-            time.sleep(1.5)
-            st.toast('Searching for the info on Kitt Le Wagon')
-            time.sleep(1.5)
-            st.toast('Raised a ticket with Jules van Rie ')
-            time.sleep(1.5)
-            st.toast('Checking Stackoverflow to make sure')
-            time.sleep(1.5)
-            st.toast('git status, add, commit "test"')
-            time.sleep(2)
-            st.toast('Hooray! We found something', icon='🎉')
-        print(response)
-        print(res)
+        # with st.spinner('Wait for it...'):
+        #     time.sleep(1)
+        #     st.toast('Slowing it down to display this message')
+        #     time.sleep(1.5)
+        #     st.toast('Searching for the info on Kitt Le Wagon')
+        #     time.sleep(1.5)
+        #     st.toast('Raised a ticket with Jules van Rie ')
+        #     time.sleep(1.5)
+        #     st.toast('Checking Stackoverflow to make sure')
+        #     time.sleep(1.5)
+        #     st.toast('git status, add, commit "test"')
+        #     time.sleep(2)
+        #     st.toast('Hooray! We found something', icon='🎉')
         if res.status_code == 200:
         #accuracy = res["accuracy"]
             if response["prediction"]==0:
