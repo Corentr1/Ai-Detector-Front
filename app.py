@@ -9,6 +9,7 @@ from PIL import Image
 #     on Streamlit Cloud
 #   - The source selected is based on the shell variable passend when launching streamlit
 #     (shortcuts are included in Makefile). By default it takes the cloud API url
+
 if 'API_URI' in os.environ:
     BASE_URI = st.secrets[os.environ.get('API_URI')]
 else:
@@ -21,6 +22,7 @@ url = "https://aidetectorimage-5gqqh622wa-ew.a.run.app"
 
 # Just displaying the source for the API. Remove this in your final version.
 #st.markdown(f"Working with {url}")
+
 
 # TODO: Add some titles, introduction, ...
 
@@ -54,22 +56,23 @@ if img_file_buffer is not None:
 
     ### Animation + API request
     trigger=False
+
     if st.button("Is it fake?"):
         res = requests.post(url + "/get_prediction", files={'img': img_bytes})
         response = res.json()
-        # with st.spinner('Wait for it...'):
-        #     time.sleep(1)
-        #     st.toast('Slowing it down to display this message')
-        #     time.sleep(1.5)
-        #     st.toast('Searching for the info on Kitt Le Wagon')
-        #     time.sleep(1.5)
-        #     st.toast('Raised a ticket with Jules van Rie ')
-        #     time.sleep(1.5)
-        #     st.toast('Checking Stackoverflow to make sure')
-        #     time.sleep(1.5)
-        #     st.toast('git status, add, commit "test"')
-        #     time.sleep(2)
-        #     st.toast('Hooray! We found something', icon='🎉')
+        with st.spinner('Wait for it...'):
+            time.sleep(1)
+            st.toast('Slowing it down to display this message')
+            time.sleep(1.5)
+            st.toast('Searching for the info on Kitt Le Wagon')
+            time.sleep(1.5)
+            st.toast('Raised a ticket with Jules van Rie ')
+            time.sleep(1.5)
+            st.toast('Checking Stackoverflow to make sure')
+            time.sleep(1.5)
+            st.toast('git status, add, commit "test"')
+            time.sleep(2)
+            st.toast('Hooray! We found something', icon='🎉')
         print(response)
         print(res)
         if res.status_code == 200:
@@ -84,23 +87,7 @@ if img_file_buffer is not None:
             st.markdown("<h3 style='text-align: center; color: #E73D53;'>Oops, something went wrong 😓 Please try again.</h3>", unsafe_allow_html=True)
             print(res.status_code, res.content)
 
-    ### Conditionnal display of response
-    # if trigger:
-    #     #st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
-    #     #st.progress(0.64, text=f"Your accuracy is around {0.64*100}%")
 
-    #     # TO UNCOMMENT WHEN API READY
-    #     if res.status_code == 200:
-    #         #accuracy = res["accuracy"]
-    #         if response["prediction"]==0:
-    #             st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely not AI bwahhh!!!</h3>", unsafe_allow_html=True)
-    #             #st.progress(accuracy, text=f"Your accuracy is around {round(accuracy*100,2)}%")
-    #         else:
-    #             st.markdown("<h3 style='text-align: center; color: #E73D53;'>Definitely AI bwahhh!!!</h3>", unsafe_allow_html=True)
-    #             #st.progress(accuracy, text=f"Your accuracy is around {round(accuracy*100,2)}%")
-    #     else:
-    #         st.markdown("<h3 style='text-align: center; color: #E73D53;'>Oops, something went wrong 😓 Please try again.</h3>", unsafe_allow_html=True)
-    #         print(res.status_code, res.content)
 
     # TODO: [OPTIONAL] maybe you can add some other pages?
     #   - some statistical data you collected in graphs
